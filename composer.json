@@ -19,7 +19,10 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "sonata-project/user-bundle": "^2.2",
         "sonata-project/doctrine-orm-admin-bundle": "^2.3",
-        "sonata-project/admin-bundle": "2.3.*"
+        "sonata-project/admin-bundle": "2.3.*",
+        "sonata-project/datagrid-bundle": "dev-master",
+        "knplabs/knp-menu-bundle": "~1.1",
+        "knplabs/knp-menu": "~1.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

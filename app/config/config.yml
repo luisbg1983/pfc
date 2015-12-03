@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: sonata/sonata_admin.yml }
+    - { resource: sonata/sonata_user.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -80,7 +81,12 @@ sonata_block:
         # enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
             contexts: [admin]
-        # ...
+        # enable the SonataUseBundle block
+        sonata.user.block.menu:    # used to display the menu in profile pages
+        sonata.user.block.account: # used to display menu option (login option)
+        sonata.block.service.text:
+        sonata.block.service.rss:
+
 
 #Usuarios
 fos_user:
@@ -94,3 +100,11 @@ fos_user:
 
     service:
         user_manager: sonata.user.orm.user_manager                      # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
+
+    profile:
+            # Authentication Form
+            form:
+                type:               fos_user_profile
+                handler:            fos_user.profile.form.handler.default
+                name:               fos_user_profile_form
+                validation_groups:  [Authentication] # Please note : this is not the default value

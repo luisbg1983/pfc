@@ -19,7 +19,7 @@ use Sonata\UserBundle\Entity\BaseUser as BaseUser;
  * References :
  *   working with object : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/working-with-objects/en
  *
- * @author <yourname> <youremail>
+ * @author <Luis Brosa> <luisbg@gmail.com>
  */
 class User extends BaseUser
 {

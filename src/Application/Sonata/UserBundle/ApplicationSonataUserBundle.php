@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  * References :
  *   bundles : http://symfony.com/doc/current/book/bundles.html
  *
- * @author <yourname> <youremail>
+ * @author <Luis Brosa> <luisbg@gmail.com>
  */
 class ApplicationSonataUserBundle extends Bundle
 {
@@ -29,4 +29,5 @@ class ApplicationSonataUserBundle extends Bundle
     {
         return 'SonataUserBundle';
     }
+
 }
