@@ -12,4 +12,4 @@ sonata_admin:
     dashboard:
             blocks:
                 # display a dashboard block
-                - { position: right, type: sonata.admin.block.admin_list }
+                - { position: left, type: sonata.admin.block.admin_list }
