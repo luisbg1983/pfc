@@ -1,0 +1,63 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+{%block stylesheets%}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+{%endblock%}
+<div class="container">
+
+    {% block sonata_page_breadcrumb %}
+        {% if breadcrumb_context is not defined %}
+            {% set breadcrumb_context = 'user_index' %}
+        {% endif %}
+        <div class="row-fluid clearfix">
+            {{ sonata_block_render_event('breadcrumb', { 'context': breadcrumb_context, 'current_uri': app.request.requestUri }) }}
+        </div>
+    {% endblock %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-info">
+
+                <div class="panel-heading">
+                    <h2>{% block sonata_profile_title %}
+                            {{ 'layout.sonata_profile_title'|trans({}, 'FOSUserBundle') }} de {{ user.username }}
+                        {% endblock %}
+                    </h2>
+                </div>
+
+        </div>
+    </div>
+
+
+    <div class="sonata-user-show row row-fluid">
+
+        <div class="span2 col-lg-2" style="padding: 8px 0;">
+            {% block sonata_profile_menu %}
+                {{ sonata_block_render({'type': 'sonata.user.block.menu'}, {'current_uri': app.request.requestUri}) }}
+            {% endblock %}
+        </div>
+
+        <div class="span10 col-lg-10">
+            {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+
+            {% block sonata_profile_content '' %}
+        </div>
+
+    </div>
+</div>
+
+</div>

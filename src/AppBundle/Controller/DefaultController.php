@@ -14,8 +14,10 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', array(
+      /*  return $this->render('default/index.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
-        ));
+        ));*/
+     //  var_dump($this->container->getParameter('fos_user.template.engine'));
+        return $this->redirect($this->generateUrl('fos_user_security_login'));
     }
 }
