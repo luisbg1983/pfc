@@ -15,8 +15,12 @@ fos_user:
             # Authentication Form
             form:
                 type:               fos_user_profile
-                handler:            fos_user.profile.form.handler.default
+                handler:            application.sonata.form.profile
                 name:               fos_user_profile_form
                 validation_groups:  [Authentication] # Please note : this is not the default value
+    registration:
+           form:
+                handler: application.sonata.form.register
+                name:     fos_user_register_form
 
 

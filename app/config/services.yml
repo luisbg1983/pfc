@@ -6,6 +6,14 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    application.sonata.form.register:
+        class: Application\Sonata\UserBundle\Form\RegistrationFormHandler
+        arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer","@fos_user.util.token_generator"]
+        scope: request
+        public: false
+
+    application.sonata.form.profile:
+            class: Application\Sonata\UserBundle\Form\ProfileFormHandler
+            arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager"]
+            scope: request
+            public: false
