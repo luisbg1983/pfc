@@ -24,7 +24,9 @@
         "knplabs/knp-menu-bundle": "~1.1",
         "knplabs/knp-menu": "~1.1",
         "sonata-project/markitup-bundle": "^2.1",
-        "mopa/bootstrap-bundle": "dev-master"
+        "mopa/bootstrap-bundle": "dev-master",
+        "parse/php-sdk": "^1.1",
+        "raveren/kint": "0.9.*@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

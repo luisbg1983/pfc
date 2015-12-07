@@ -1,0 +1,12 @@
+services:
+    login_listener:
+        class: 'Application\Sonata\UserBundle\EventListener\LoginListener'
+        arguments: ['@security.context', '@doctrine']
+        tags:
+            - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+
+    register_subs:
+            class: 'Application\Sonata\UserBundle\EventListener\RegisterSub'
+            arguments: [@router]
+            tags:
+                - { name: 'kernel.event_subscriber' }
