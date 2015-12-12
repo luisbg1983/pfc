@@ -8,12 +8,14 @@ parameters:
 services:
     application.sonata.form.register:
         class: Application\Sonata\UserBundle\Form\RegistrationFormHandler
-        arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer","@fos_user.util.token_generator"]
+        arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer","@fos_user.util.token_generator","@service_container"]
         scope: request
         public: false
 
     application.sonata.form.profile:
             class: Application\Sonata\UserBundle\Form\ProfileFormHandler
-            arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager"]
+            arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager","@session","@service_container"]
             scope: request
             public: false
+
+

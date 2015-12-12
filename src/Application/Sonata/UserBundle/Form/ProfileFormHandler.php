@@ -13,11 +13,13 @@ namespace Application\Sonata\UserBundle\Form;
 
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Parse\ParseUser;
 use Parse\ParseException;
 use Parse\ParseClient;
+use Symfony\Component\HttpFoundation\Session\Session;
 use FOS\UserBundle\Form\Handler\ProfileFormHandler as HandlerBase;
 
 class ProfileFormHandler extends HandlerBase
@@ -25,16 +27,21 @@ class ProfileFormHandler extends HandlerBase
     protected $request;
     protected $userManager;
     protected $form;
+    protected $session;
+    protected $container;
 
-    public function __construct(FormInterface $form, Request $request, UserManagerInterface $userManager)
+    public function __construct(FormInterface $form, Request $request, UserManagerInterface $userManager, Session $session, ContainerInterface $container)
     {
         $this->form = $form;
         $this->request = $request;
         $this->userManager = $userManager;
-        $app_id="1cqYcf66haVHbCdBVLfsf2ftqRDvbjSbS6FtBLSK";
-        $rest_key="dXjZTafqEjH6JEko0OJhPjmQtosUfnaL8Z3tQwb5";
-        $master_key="xxuLNI0bAuPYHTPu08NlU8YxdKEGFnripFIdOKH1";
-        ParseClient::initialize( $app_id, $rest_key, $master_key );
+        $this->session = $session;
+        $this->container = $container;
+        $app_id = $this->container->getParameter('parse_app_id');
+        $rest_key = $this->container->getParameter("parse_rest_key");
+        $master_key = $this->container->getParameter("parse_master_key");
+        ParseClient::initialize( $app_id , $rest_key, $master_key );
+
     }
 
     public function process(UserInterface $user)
@@ -65,9 +72,16 @@ class ProfileFormHandler extends HandlerBase
     }
 
     protected function UserToParseUser(UserInterface $user){
-        $currentUser = ParseUser::getCurrentUser();
-        d($currentUser);
-        exit();
+        $token = $this->session->get('parseUser')->getSessionToken();
+        try {
+            $user2 = ParseUser::become($token);
+            // The current user is now set to user.
+        } catch (ParseException $ex) {
+            // The token could not be validated.
+        }
+        //AQUI ASIGNAMOS TODOS LOS VALORES PARA HACER EL UPDATE.
+
+        d($user);
         return $user;
     }
 }

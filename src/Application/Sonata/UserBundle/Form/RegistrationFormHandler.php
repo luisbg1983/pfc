@@ -10,16 +10,19 @@
 
 namespace Application\Sonata\UserBundle\Form;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use FOS\UserBundle\Form\Handler\RegistrationFormHandler as HandlerBase;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Parse\ParseUser;
 use Parse\ParseException;
 use Parse\ParseClient;
+
 
 class RegistrationFormHandler extends HandlerBase
 {
@@ -28,13 +31,16 @@ class RegistrationFormHandler extends HandlerBase
     protected $form;
     protected $mailer;
     protected $tokenGenerator;
+    protected $container;
 
-    public function __construct(FormInterface $form, Request $request, UserManagerInterface $userManager, MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator)
+    public function __construct(FormInterface $form, Request $request, UserManagerInterface $userManager, MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator, ContainerInterface $container)
     {
-        $app_id="1cqYcf66haVHbCdBVLfsf2ftqRDvbjSbS6FtBLSK";
-        $rest_key="dXjZTafqEjH6JEko0OJhPjmQtosUfnaL8Z3tQwb5";
-        $master_key="xxuLNI0bAuPYHTPu08NlU8YxdKEGFnripFIdOKH1";
-        ParseClient::initialize( $app_id, $rest_key, $master_key );
+        $this->container = $container;
+
+        $app_id = $this->container->getParameter('parse_app_id');
+        $rest_key = $this->container->getParameter("parse_rest_key");
+        $master_key = $this->container->getParameter("parse_master_key");
+        ParseClient::initialize( $app_id , $rest_key, $master_key );
         parent::__construct($form,$request,$userManager,$mailer,$tokenGenerator);
     }
 
@@ -42,7 +48,6 @@ class RegistrationFormHandler extends HandlerBase
     {
 
         $user = $this->createUser();
-        d($user);
         $this->form->setData($user);
 
         if ('POST' === $this->request->getMethod()) {
@@ -109,7 +114,6 @@ class RegistrationFormHandler extends HandlerBase
         } catch (ParseException $ex) {
             // error in $ex->getMessage();
         }
-        d($user);
         //POR AHORA DEJO TB CREANDO EL USUARIO EN LA BD LOCAL DE SYMFONY
         return $this->userManager->createUser();
     }

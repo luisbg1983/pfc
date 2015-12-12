@@ -28,9 +28,6 @@ class RegisterSub implements EventSubscriberInterface{
     public function __construct(UrlGeneratorInterface $router)
     {
         $this->router = $router;
-        d($this->router);
-        exit();
-
     }
 
     public static function getSubscribedEvents()
@@ -44,8 +41,6 @@ class RegisterSub implements EventSubscriberInterface{
 
     public function onRegisterDone(FilterUserResponseEvent $event)
     {
-        d($event);
-        exit();
         //$event->setResponse(new RedirectResponse($url));
     }
 

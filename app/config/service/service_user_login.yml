@@ -1,7 +1,7 @@
 services:
     login_listener:
         class: 'Application\Sonata\UserBundle\EventListener\LoginListener'
-        arguments: ['@security.context', '@doctrine']
+        arguments: ['@security.context', '@doctrine',"@service_container","@session"]
         tags:
             - { name: 'kernel.event_listener', event: 'security.interactive_login' }
 
